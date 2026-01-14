@@ -1,13 +1,32 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Switch } from '@/components/ui/switch';
+import { Button } from '@/components/ui/button';
 import { motion } from 'framer-motion';
-import { User, Link, BadgeCheck } from 'lucide-react';
+import { User, Link, BadgeCheck, Upload, Loader2 } from 'lucide-react';
+import { base44 } from '@/api/base44Client';
 
 export default function AccountSetup({ account, onChange, label, platform }) {
+  const [uploading, setUploading] = useState(false);
+
   const handleChange = (field, value) => {
     onChange({ ...account, [field]: value });
+  };
+
+  const handleFileUpload = async (e) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    try {
+      setUploading(true);
+      const { file_url } = await base44.integrations.Core.UploadFile({ file });
+      handleChange('avatar_url', file_url);
+    } catch (error) {
+      console.error('Upload failed:', error);
+    } finally {
+      setUploading(false);
+    }
   };
 
   return (
@@ -46,13 +65,40 @@ export default function AccountSetup({ account, onChange, label, platform }) {
         </div>
 
         <div className="space-y-2">
-          <Label className="text-white/70 text-sm">Avatar URL</Label>
-          <Input
-            value={account.avatar_url || ''}
-            onChange={(e) => handleChange('avatar_url', e.target.value)}
-            placeholder="https://example.com/avatar.jpg"
-            className="bg-white/10 border-white/20 text-white placeholder:text-white/40"
-          />
+          <Label className="text-white/70 text-sm">Avatar Image</Label>
+          <div className="flex gap-2">
+            <Input
+              value={account.avatar_url || ''}
+              onChange={(e) => handleChange('avatar_url', e.target.value)}
+              placeholder="Or paste image URL..."
+              className="bg-white/10 border-white/20 text-white placeholder:text-white/40 flex-1"
+            />
+            <div className="relative">
+              <input
+                type="file"
+                accept="image/*"
+                onChange={handleFileUpload}
+                disabled={uploading}
+                className="absolute inset-0 w-full h-full opacity-0 cursor-pointer disabled:cursor-not-allowed"
+                id={`avatar-upload-${label}`}
+              />
+              <Button
+                type="button"
+                disabled={uploading}
+                className="bg-white/10 border border-white/20 text-white hover:bg-white/20 whitespace-nowrap"
+                asChild
+              >
+                <label htmlFor={`avatar-upload-${label}`} className="cursor-pointer flex items-center gap-2">
+                  {uploading ? (
+                    <Loader2 className="w-4 h-4 animate-spin" />
+                  ) : (
+                    <Upload className="w-4 h-4" />
+                  )}
+                  {uploading ? 'Uploading...' : 'Upload'}
+                </label>
+              </Button>
+            </div>
+          </div>
         </div>
 
         <div className="space-y-2">
