@@ -45,8 +45,15 @@ export default function DesktopPreview() {
     tiktok: TikTokDM
   }[config.platform];
 
+  const backgrounds = {
+    instagram: 'bg-white',
+    twitter: 'bg-black',
+    facebook: 'bg-white',
+    tiktok: 'bg-black'
+  };
+
   return (
-    <div className="min-h-screen bg-black flex items-center justify-center p-8">
+    <div className={`min-h-screen ${backgrounds[config.platform]}`}>
       <DMComponent
         account1={config.account1}
         account2={config.account2}
