@@ -14,6 +14,9 @@ import InstagramDM from '@/components/simulator/dm/InstagramDM';
 import TwitterDM from '@/components/simulator/dm/TwitterDM';
 import FacebookDM from '@/components/simulator/dm/FacebookDM';
 import TikTokDM from '@/components/simulator/dm/TikTokDM';
+import DesktopInstagram from '@/components/simulator/dm/DesktopInstagram';
+import StatusBarControls from '@/components/simulator/StatusBarControls';
+import ViewModeSelector from '@/components/simulator/ViewModeSelector';
 
 import { Save, ChevronRight, ChevronLeft, Smartphone } from 'lucide-react';
 
@@ -45,6 +48,8 @@ export default function Simulator() {
   const [visibleMessages, setVisibleMessages] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [speed, setSpeed] = useState(2);
+  const [statusBar, setStatusBar] = useState({ time: '9:41', signal: 4, battery: 80 });
+  const [viewMode, setViewMode] = useState('mobile');
   const playbackRef = useRef(null);
 
   // Load existing conversation
@@ -130,12 +135,12 @@ export default function Simulator() {
     }
   };
 
-  const DMComponent = {
+  const DMComponent = viewMode === 'mobile' ? {
     instagram: InstagramDM,
     twitter: TwitterDM,
     facebook: FacebookDM,
     tiktok: TikTokDM
-  }[platform];
+  }[platform] : DesktopInstagram;
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-zinc-950 via-zinc-900 to-black">
@@ -286,6 +291,10 @@ export default function Simulator() {
                     />
                   </div>
 
+                  <ViewModeSelector mode={viewMode} onChange={setViewMode} />
+
+                  <StatusBarControls statusBar={statusBar} onChange={setStatusBar} />
+
                   <PlaybackControls
                     isPlaying={isPlaying}
                     onPlayPause={handlePlayPause}
@@ -324,17 +333,19 @@ export default function Simulator() {
           <div className="flex items-center justify-center py-8">
             <AnimatePresence mode="wait">
               <motion.div
-                key={platform}
+                key={`${platform}-${viewMode}`}
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.9 }}
                 transition={{ duration: 0.3 }}
+                className="w-full flex justify-center"
               >
                 <DMComponent
                   account1={account1}
                   account2={account2}
                   visibleMessages={step === 4 ? visibleMessages : messages}
                   isPlaying={isPlaying && currentIndex < messages.length}
+                  statusBar={statusBar}
                 />
               </motion.div>
             </AnimatePresence>

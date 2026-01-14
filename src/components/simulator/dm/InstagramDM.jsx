@@ -2,27 +2,14 @@ import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Phone, Video, Info, Heart, Image, Mic, ChevronLeft, BadgeCheck } from 'lucide-react';
 
-export default function InstagramDM({ account1, account2, visibleMessages, isPlaying }) {
+export default function InstagramDM({ account1, account2, visibleMessages, isPlaying, statusBar = { time: '9:41', signal: 4, battery: 80 } }) {
   const otherAccount = account2;
 
   return (
     <div className="w-full max-w-[375px] mx-auto bg-black rounded-[3rem] p-3 shadow-2xl">
       <div className="bg-black rounded-[2.5rem] overflow-hidden h-[700px] flex flex-col">
         {/* Status Bar */}
-        <div className="flex justify-between items-center px-6 py-2 text-white text-xs">
-          <span className="font-semibold">9:41</span>
-          <div className="flex items-center gap-1">
-            <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3z"/>
-            </svg>
-            <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M12 21c-4.97 0-9-4.03-9-9s4.03-9 9-9 9 4.03 9 9-4.03 9-9 9z"/>
-            </svg>
-            <div className="w-6 h-3 border border-white rounded-sm relative">
-              <div className="absolute inset-0.5 bg-white rounded-sm" style={{ width: '80%' }} />
-            </div>
-          </div>
-        </div>
+        <StatusBar time={statusBar.time} signal={statusBar.signal} battery={statusBar.battery} />
 
         {/* Header */}
         <div className="flex items-center justify-between px-4 py-3 border-b border-white/10">
