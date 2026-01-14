@@ -265,9 +265,8 @@ export default function Simulator() {
                   />
                   <div className="flex gap-3">
                     <Button
-                      variant="outline"
                       onClick={() => setStep(1)}
-                      className="flex-1 border-white/20 text-white hover:bg-white/10 hover:text-white"
+                      className="flex-1 bg-white/5 border border-white/20 text-white hover:bg-white/10 hover:text-white"
                     >
                       <ChevronLeft className="w-4 h-4 mr-2 text-white" /> Back
                     </Button>
@@ -300,9 +299,8 @@ export default function Simulator() {
                   />
                   <div className="flex gap-3 mt-6">
                     <Button
-                      variant="outline"
                       onClick={() => setStep(2)}
-                      className="flex-1 border-white/20 text-white hover:bg-white/10 hover:text-white"
+                      className="flex-1 bg-white/5 border border-white/20 text-white hover:bg-white/10 hover:text-white"
                     >
                       <ChevronLeft className="w-4 h-4 mr-2 text-white" /> Back
                     </Button>
@@ -372,9 +370,8 @@ export default function Simulator() {
 
                   <div className="flex gap-3">
                     <Button
-                      variant="outline"
                       onClick={() => setStep(3)}
-                      className="flex-1 border-white/20 text-white hover:bg-white/10 hover:text-white"
+                      className="flex-1 bg-white/5 border border-white/20 text-white hover:bg-white/10 hover:text-white"
                     >
                       <ChevronLeft className="w-4 h-4 mr-2 text-white" /> Edit Messages
                     </Button>
