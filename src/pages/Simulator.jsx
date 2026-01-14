@@ -15,6 +15,9 @@ import TwitterDM from '@/components/simulator/dm/TwitterDM';
 import FacebookDM from '@/components/simulator/dm/FacebookDM';
 import TikTokDM from '@/components/simulator/dm/TikTokDM';
 import DesktopInstagram from '@/components/simulator/dm/DesktopInstagram';
+import DesktopTwitter from '@/components/simulator/dm/DesktopTwitter';
+import DesktopFacebook from '@/components/simulator/dm/DesktopFacebook';
+import DesktopTikTok from '@/components/simulator/dm/DesktopTikTok';
 import StatusBarControls from '@/components/simulator/StatusBarControls';
 import ViewModeSelector from '@/components/simulator/ViewModeSelector';
 
@@ -140,7 +143,12 @@ export default function Simulator() {
     twitter: TwitterDM,
     facebook: FacebookDM,
     tiktok: TikTokDM
-  }[platform] : DesktopInstagram;
+  }[platform] : {
+    instagram: DesktopInstagram,
+    twitter: DesktopTwitter,
+    facebook: DesktopFacebook,
+    tiktok: DesktopTikTok
+  }[platform];
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-zinc-950 via-zinc-900 to-black">
