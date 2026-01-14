@@ -164,6 +164,28 @@ export default function Simulator() {
     }, 500);
   };
 
+  // Listen for config requests from preview window
+  useEffect(() => {
+    const handleMessage = (event) => {
+      if (event.data.type === 'REQUEST_CONFIG' && previewWindowRef.current) {
+        previewWindowRef.current.postMessage({
+          type: 'UPDATE_PREVIEW',
+          config: {
+            platform,
+            account1,
+            account2,
+            visibleMessages,
+            isPlaying: isPlaying && currentIndex < messages.length,
+            statusBar
+          }
+        }, '*');
+      }
+    };
+
+    window.addEventListener('message', handleMessage);
+    return () => window.removeEventListener('message', handleMessage);
+  }, [platform, account1, account2, visibleMessages, isPlaying, currentIndex, statusBar]);
+
   // Update preview window when state changes
   useEffect(() => {
     if (previewWindowRef.current && !previewWindowRef.current.closed) {
