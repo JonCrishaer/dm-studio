@@ -2,6 +2,34 @@ import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Phone, Video, Info, Heart, Image, Mic, ChevronLeft, BadgeCheck } from 'lucide-react';
 
+function StatusBar({ time, signal, battery }) {
+  const bars = Math.min(4, Math.max(0, signal));
+  
+  return (
+    <div className="flex justify-between items-center px-6 py-2 text-white text-xs">
+      <span className="font-semibold">{time}</span>
+      <div className="flex items-center gap-1.5">
+        <div className="flex items-end gap-0.5 h-3">
+          {[1, 2, 3, 4].map((bar) => (
+            <div
+              key={bar}
+              className={`w-0.5 rounded-full ${bar <= bars ? 'bg-white' : 'bg-white/30'}`}
+              style={{ height: `${bar * 25}%` }}
+            />
+          ))}
+        </div>
+        <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M1 9l2 2c4.97-4.97 13.03-4.97 18 0l2-2C16.93 2.93 7.08 2.93 1 9zm8 8l3 3 3-3c-1.65-1.66-4.34-1.66-6 0zm-4-4l2 2c2.76-2.76 7.24-2.76 10 0l2-2C15.14 9.14 8.87 9.14 5 13z"/>
+        </svg>
+        <div className="w-6 h-3 border border-white rounded-sm relative">
+          <div className="absolute inset-0.5 bg-white rounded-sm" style={{ width: `${battery}%` }} />
+          <div className="absolute -right-0.5 top-1/2 -translate-y-1/2 w-0.5 h-1.5 bg-white rounded-r-sm" />
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function InstagramDM({ account1, account2, visibleMessages, isPlaying, statusBar = { time: '9:41', signal: 4, battery: 80 } }) {
   const otherAccount = account2;
 
