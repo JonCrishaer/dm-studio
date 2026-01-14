@@ -403,7 +403,7 @@ export default function Simulator() {
                 <DMComponent
                   account1={account1}
                   account2={account2}
-                  visibleMessages={step === 4 ? visibleMessages : messages}
+                  visibleMessages={isPlaying ? visibleMessages : messages}
                   isPlaying={isPlaying && currentIndex < messages.length}
                   statusBar={statusBar}
                 />
