@@ -51,9 +51,9 @@ export default function Home() {
               <Link to={createPageUrl('Simulator')}>
                 <Button 
                   size="lg" 
-                  className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-lg px-8 py-6 rounded-xl"
+                  className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white text-lg px-8 py-6 rounded-xl"
                 >
-                  <Play className="w-5 h-5 mr-2" />
+                  <Play className="w-5 h-5 mr-2 text-white" />
                   Start Creating
                 </Button>
               </Link>
@@ -61,9 +61,9 @@ export default function Home() {
                 <Button 
                   size="lg" 
                   variant="outline"
-                  className="border-white/20 text-white hover:bg-white/10 text-lg px-8 py-6 rounded-xl"
+                  className="border-white/20 text-white hover:bg-white/10 hover:text-white text-lg px-8 py-6 rounded-xl"
                 >
-                  <MessageCircle className="w-5 h-5 mr-2" />
+                  <MessageCircle className="w-5 h-5 mr-2 text-white" />
                   My Conversations
                 </Button>
               </Link>
