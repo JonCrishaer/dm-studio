@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { base44 } from '@/api/base44Client';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { createPageUrl } from '@/utils';
 
 import PlatformSelector from '@/components/simulator/PlatformSelector';
 import AccountSetup from '@/components/simulator/AccountSetup';
@@ -21,7 +22,7 @@ import DesktopTikTok from '@/components/simulator/dm/DesktopTikTok';
 import StatusBarControls from '@/components/simulator/StatusBarControls';
 import ViewModeSelector from '@/components/simulator/ViewModeSelector';
 
-import { Save, ChevronRight, ChevronLeft, Smartphone } from 'lucide-react';
+import { Save, ChevronRight, ChevronLeft, Smartphone, ExternalLink } from 'lucide-react';
 
 export default function Simulator() {
   const [searchParams] = useSearchParams();
@@ -54,6 +55,7 @@ export default function Simulator() {
   const [statusBar, setStatusBar] = useState({ time: '9:41', signal: 4, battery: 80 });
   const [viewMode, setViewMode] = useState('mobile');
   const playbackRef = useRef(null);
+  const previewWindowRef = useRef(null);
 
   // Load existing conversation
   const { data: existingConversation } = useQuery({
@@ -137,6 +139,45 @@ export default function Simulator() {
       setCurrentIndex(prev => prev + 1);
     }
   };
+
+  const openDesktopPreview = () => {
+    const previewUrl = createPageUrl('DesktopPreview');
+    previewWindowRef.current = window.open(previewUrl, 'DesktopPreview', 'width=1400,height=900');
+    
+    // Send initial config
+    setTimeout(() => {
+      if (previewWindowRef.current) {
+        previewWindowRef.current.postMessage({
+          type: 'UPDATE_PREVIEW',
+          config: {
+            platform,
+            account1,
+            account2,
+            visibleMessages,
+            isPlaying: isPlaying && currentIndex < messages.length,
+            statusBar
+          }
+        }, '*');
+      }
+    }, 500);
+  };
+
+  // Update preview window when state changes
+  useEffect(() => {
+    if (previewWindowRef.current && !previewWindowRef.current.closed) {
+      previewWindowRef.current.postMessage({
+        type: 'UPDATE_PREVIEW',
+        config: {
+          platform,
+          account1,
+          account2,
+          visibleMessages,
+          isPlaying: isPlaying && currentIndex < messages.length,
+          statusBar
+        }
+      }, '*');
+    }
+  }, [platform, account1, account2, visibleMessages, isPlaying, currentIndex, statusBar]);
 
   const DMComponent = viewMode === 'mobile' ? {
     instagram: InstagramDM,
@@ -300,6 +341,20 @@ export default function Simulator() {
                   </div>
 
                   <ViewModeSelector mode={viewMode} onChange={setViewMode} />
+
+                  {viewMode === 'desktop' && (
+                    <div className="bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10">
+                      <h3 className="text-lg font-semibold text-white mb-3">Open in New Tab</h3>
+                      <p className="text-white/50 text-sm mb-4">Open the desktop view in a separate window for a more realistic experience</p>
+                      <Button
+                        onClick={openDesktopPreview}
+                        className="w-full bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white"
+                      >
+                        <ExternalLink className="w-4 h-4 mr-2 text-white" />
+                        Open Desktop View in New Tab
+                      </Button>
+                    </div>
+                  )}
 
                   <StatusBarControls statusBar={statusBar} onChange={setStatusBar} />
 
