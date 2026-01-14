@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button';
 import { motion } from 'framer-motion';
 import { User, Link, BadgeCheck, Upload, Loader2 } from 'lucide-react';
 import { base44 } from '@/api/base44Client';
+import ProfileSelector from './ProfileSelector';
 
 export default function AccountSetup({ account, onChange, label, platform }) {
   const [uploading, setUploading] = useState(false);
@@ -35,11 +36,14 @@ export default function AccountSetup({ account, onChange, label, platform }) {
       animate={{ opacity: 1, y: 0 }}
       className="bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10"
     >
-      <div className="flex items-center gap-3 mb-6">
-        <div className="w-10 h-10 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center">
-          <User className="w-5 h-5 text-white" />
+      <div className="flex items-center justify-between mb-6">
+        <div className="flex items-center gap-3">
+          <div className="w-10 h-10 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center">
+            <User className="w-5 h-5 text-white" />
+          </div>
+          <h3 className="text-lg font-semibold text-white">{label}</h3>
         </div>
-        <h3 className="text-lg font-semibold text-white">{label}</h3>
+        <ProfileSelector onSelect={onChange} currentAccount={account} />
       </div>
 
       <div className="space-y-4">
