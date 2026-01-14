@@ -1,14 +1,49 @@
 import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { MoreHorizontal, Image as ImageIcon, Smile, Send, BadgeCheck } from 'lucide-react';
+import { MoreHorizontal, Image as ImageIcon, Smile, Send, BadgeCheck, Search, Home, ShoppingBag, HelpCircle, User, Users, Tv, TrendingUp, MessageCircle, Plus } from 'lucide-react';
 
 export default function DesktopTikTok({ account1, account2, visibleMessages, isPlaying }) {
   const otherAccount = account2;
 
   return (
-    <div className="w-full max-w-5xl mx-auto bg-black rounded-lg shadow-2xl overflow-hidden" style={{ height: '700px' }}>
-      <div className="flex h-full border border-zinc-800">
-        {/* Sidebar */}
+    <div className="w-full mx-auto bg-black shadow-2xl overflow-hidden flex" style={{ height: '100vh' }}>
+      {/* Left Navigation Sidebar */}
+      <div className="w-16 bg-black border-r border-zinc-800 flex flex-col items-center py-4 gap-4">
+        {/* TikTok Logo */}
+        <div className="text-white mb-2">
+          <svg className="w-7 h-7" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/>
+          </svg>
+        </div>
+
+        {/* Navigation Icons */}
+        <Search className="w-6 h-6 text-white/70 cursor-pointer hover:text-white" />
+        <Home className="w-6 h-6 text-white/70 cursor-pointer hover:text-white" />
+        <ShoppingBag className="w-6 h-6 text-white/70 cursor-pointer hover:text-white" />
+        <HelpCircle className="w-6 h-6 text-white/70 cursor-pointer hover:text-white" />
+        <User className="w-6 h-6 text-white/70 cursor-pointer hover:text-white" />
+        <Users className="w-6 h-6 text-white/70 cursor-pointer hover:text-white" />
+        <Tv className="w-6 h-6 text-white/70 cursor-pointer hover:text-white" />
+        <TrendingUp className="w-6 h-6 text-white/70 cursor-pointer hover:text-white" />
+        <MessageCircle className="w-6 h-6 text-[#FE2C55] cursor-pointer" />
+        <Plus className="w-6 h-6 text-white/70 cursor-pointer hover:text-white" />
+
+        {/* Profile Avatar at Bottom */}
+        <div className="mt-auto">
+          <div className="w-8 h-8 rounded-full bg-zinc-700 flex items-center justify-center">
+            <span className="text-white text-xs">P</span>
+          </div>
+        </div>
+        <div className="w-6 h-1 flex gap-0.5">
+          <div className="w-1 h-1 rounded-full bg-white/70"></div>
+          <div className="w-1 h-1 rounded-full bg-white/70"></div>
+          <div className="w-1 h-1 rounded-full bg-white/70"></div>
+        </div>
+      </div>
+
+      {/* Main Content Area */}
+      <div className="flex flex-1">
+        {/* Messages Sidebar */}
         <div className="w-80 border-r border-zinc-800 flex flex-col bg-black">
           <div className="p-4 border-b border-zinc-800">
             <h2 className="text-xl font-bold text-white">Messages</h2>

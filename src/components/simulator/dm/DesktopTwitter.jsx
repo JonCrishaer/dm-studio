@@ -1,14 +1,62 @@
 import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Settings, Send, Image as ImageIcon, Smile, MoreHorizontal } from 'lucide-react';
+import { Settings, Send, Image as ImageIcon, Smile, MoreHorizontal, Home, Search, Bell, Mail, User, Bookmark, UserCheck } from 'lucide-react';
 
 export default function DesktopTwitter({ account1, account2, visibleMessages, isPlaying }) {
   const otherAccount = account2;
 
   return (
-    <div className="w-full max-w-5xl mx-auto bg-black rounded-lg shadow-2xl overflow-hidden" style={{ height: '700px' }}>
-      <div className="flex h-full border border-zinc-800">
-        {/* Sidebar */}
+    <div className="w-full mx-auto bg-black shadow-2xl overflow-hidden flex" style={{ height: '100vh' }}>
+      {/* Left Navigation Sidebar */}
+      <div className="w-60 border-r border-zinc-800 flex flex-col p-3 bg-black">
+        {/* X Logo */}
+        <div className="p-3 mb-2">
+          <svg className="w-8 h-8" viewBox="0 0 24 24" fill="white">
+            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+          </svg>
+        </div>
+
+        {/* Navigation Links */}
+        <div className="space-y-1 flex-1">
+          <div className="flex items-center gap-4 px-3 py-3 hover:bg-zinc-900 rounded-full cursor-pointer">
+            <Home className="w-6 h-6 text-white" />
+            <span className="text-white text-xl">Home</span>
+          </div>
+          <div className="flex items-center gap-4 px-3 py-3 hover:bg-zinc-900 rounded-full cursor-pointer">
+            <Search className="w-6 h-6 text-white" />
+            <span className="text-white text-xl">Explore</span>
+          </div>
+          <div className="flex items-center gap-4 px-3 py-3 hover:bg-zinc-900 rounded-full cursor-pointer">
+            <Bell className="w-6 h-6 text-white" />
+            <span className="text-white text-xl">Notifications</span>
+          </div>
+          <div className="flex items-center gap-4 px-3 py-3 hover:bg-zinc-900 rounded-full cursor-pointer bg-zinc-900">
+            <Mail className="w-6 h-6 text-white" />
+            <span className="text-white text-xl font-bold">Messages</span>
+          </div>
+          <div className="flex items-center gap-4 px-3 py-3 hover:bg-zinc-900 rounded-full cursor-pointer">
+            <Bookmark className="w-6 h-6 text-white" />
+            <span className="text-white text-xl">Bookmarks</span>
+          </div>
+          <div className="flex items-center gap-4 px-3 py-3 hover:bg-zinc-900 rounded-full cursor-pointer">
+            <UserCheck className="w-6 h-6 text-white" />
+            <span className="text-white text-xl">Communities</span>
+          </div>
+          <div className="flex items-center gap-4 px-3 py-3 hover:bg-zinc-900 rounded-full cursor-pointer">
+            <User className="w-6 h-6 text-white" />
+            <span className="text-white text-xl">Profile</span>
+          </div>
+        </div>
+
+        {/* Post button */}
+        <button className="bg-[#1d9bf0] hover:bg-[#1a8cd8] text-white font-bold py-3 px-6 rounded-full mb-4 w-full">
+          Post
+        </button>
+      </div>
+
+      {/* Main Content Area */}
+      <div className="flex flex-1">
+        {/* Messages Sidebar */}
         <div className="w-80 border-r border-zinc-800 flex flex-col bg-black">
           <div className="p-4 border-b border-zinc-800 flex items-center justify-between">
             <h2 className="text-xl font-bold text-white">Messages</h2>
