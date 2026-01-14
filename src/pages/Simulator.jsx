@@ -21,6 +21,7 @@ import DesktopFacebook from '@/components/simulator/dm/DesktopFacebook';
 import DesktopTikTok from '@/components/simulator/dm/DesktopTikTok';
 import StatusBarControls from '@/components/simulator/StatusBarControls';
 import ViewModeSelector from '@/components/simulator/ViewModeSelector';
+import BrowserCustomizer from '@/components/simulator/BrowserCustomizer';
 
 import { Save, ChevronRight, ChevronLeft, Smartphone, ExternalLink } from 'lucide-react';
 
@@ -55,6 +56,13 @@ export default function Simulator() {
   const [speed, setSpeed] = useState(2);
   const [statusBar, setStatusBar] = useState({ time: '9:41', signal: 4, battery: 80 });
   const [viewMode, setViewMode] = useState('mobile');
+  const [browserConfig, setBrowserConfig] = useState({
+    url: '',
+    tabs: [{ title: 'Messages', favicon: '' }],
+    activeTab: 0,
+    bookmarks: [],
+    extensions: []
+  });
   const playbackRef = useRef(null);
   const previewWindowRef = useRef(null);
 
@@ -157,7 +165,8 @@ export default function Simulator() {
             account2,
             visibleMessages,
             isPlaying: isPlaying && currentIndex < messages.length,
-            statusBar
+            statusBar,
+            browserConfig
           }
         }, '*');
       }
@@ -176,7 +185,8 @@ export default function Simulator() {
             account2,
             visibleMessages,
             isPlaying: isPlaying && currentIndex < messages.length,
-            statusBar
+            statusBar,
+            browserConfig
           }
         }, '*');
       }
@@ -184,7 +194,7 @@ export default function Simulator() {
 
     window.addEventListener('message', handleMessage);
     return () => window.removeEventListener('message', handleMessage);
-  }, [platform, account1, account2, visibleMessages, isPlaying, currentIndex, statusBar]);
+  }, [platform, account1, account2, visibleMessages, isPlaying, currentIndex, statusBar, browserConfig]);
 
   // Update preview window when state changes
   useEffect(() => {
@@ -197,11 +207,12 @@ export default function Simulator() {
           account2,
           visibleMessages,
           isPlaying: isPlaying && currentIndex < messages.length,
-          statusBar
+          statusBar,
+          browserConfig
         }
       }, '*');
     }
-  }, [platform, account1, account2, visibleMessages, isPlaying, currentIndex, statusBar]);
+  }, [platform, account1, account2, visibleMessages, isPlaying, currentIndex, statusBar, browserConfig]);
 
   const DMComponent = viewMode === 'mobile' ? {
     instagram: InstagramDM,
@@ -378,7 +389,13 @@ export default function Simulator() {
                     </div>
                   )}
 
-                  <StatusBarControls statusBar={statusBar} onChange={setStatusBar} />
+                  {viewMode === 'mobile' && (
+                    <StatusBarControls statusBar={statusBar} onChange={setStatusBar} />
+                  )}
+
+                  {viewMode === 'desktop' && (
+                    <BrowserCustomizer browserConfig={browserConfig} onChange={setBrowserConfig} />
+                  )}
 
                   <PlaybackControls
                     isPlaying={isPlaying}

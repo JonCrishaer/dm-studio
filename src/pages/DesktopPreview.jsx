@@ -53,32 +53,55 @@ export default function DesktopPreview() {
     tiktok: 'bg-black'
   };
 
-  const urls = {
+  const defaultUrls = {
     instagram: 'instagram.com/direct/inbox',
     twitter: 'x.com/messages',
     facebook: 'messenger.com',
     tiktok: 'tiktok.com/messages'
   };
 
+  const browserConfig = config.browserConfig || {
+    url: '',
+    tabs: [{ title: 'Messages', favicon: '' }],
+    activeTab: 0,
+    bookmarks: [],
+    extensions: []
+  };
+
+  const displayUrl = browserConfig.url || defaultUrls[config.platform];
+  const activeTabs = browserConfig.tabs.length > 0 ? browserConfig.tabs : [{ title: 'Messages', favicon: '' }];
+
   return (
-    <div className="min-h-screen bg-zinc-100">
+    <div className="h-screen flex flex-col bg-zinc-100 overflow-hidden">
       {/* Browser Chrome */}
-      <div className="bg-white border-b border-zinc-200 shadow-sm">
+      <div className="bg-white border-b border-zinc-200 shadow-sm flex-shrink-0">
         {/* Tab Bar */}
         <div className="flex items-center gap-1 px-2 pt-2 bg-zinc-100">
-          <div className="flex items-center gap-2 px-4 py-2 bg-white rounded-t-lg border-t border-x border-zinc-200 min-w-[200px]">
-            <img 
-              src={`https://www.google.com/s2/favicons?domain=${urls[config.platform]}&sz=32`}
-              alt=""
-              className="w-4 h-4"
-            />
-            <span className="text-sm text-zinc-700 truncate flex-1">
-              {config.platform === 'instagram' && 'Instagram • Chats'}
-              {config.platform === 'twitter' && 'Messages / X'}
-              {config.platform === 'facebook' && 'Messenger'}
-              {config.platform === 'tiktok' && 'Messages | TikTok'}
-            </span>
-          </div>
+          {activeTabs.map((tab, index) => (
+            <div 
+              key={index}
+              className={`flex items-center gap-2 px-4 py-2 rounded-t-lg border-t border-x min-w-[180px] max-w-[240px] ${
+                index === browserConfig.activeTab 
+                  ? 'bg-white border-zinc-200' 
+                  : 'bg-zinc-50 border-zinc-300'
+              }`}
+            >
+              {tab.favicon ? (
+                tab.favicon.startsWith('http') ? (
+                  <img src={tab.favicon} alt="" className="w-4 h-4" />
+                ) : (
+                  <span className="text-base">{tab.favicon}</span>
+                )
+              ) : (
+                <img 
+                  src={`https://www.google.com/s2/favicons?domain=${displayUrl}&sz=32`}
+                  alt=""
+                  className="w-4 h-4"
+                />
+              )}
+              <span className="text-sm text-zinc-700 truncate flex-1">{tab.title}</span>
+            </div>
+          ))}
           <button className="p-2 hover:bg-zinc-200 rounded-lg">
             <Plus className="w-4 h-4 text-zinc-600" />
           </button>
@@ -104,17 +127,50 @@ export default function DesktopPreview() {
 
           <div className="flex-1 flex items-center gap-2 bg-zinc-50 hover:bg-zinc-100 rounded-lg px-4 py-2 border border-zinc-200">
             <Lock className="w-4 h-4 text-zinc-500" />
-            <span className="text-sm text-zinc-700">{urls[config.platform]}</span>
+            <span className="text-sm text-zinc-700">{displayUrl}</span>
           </div>
+
+          {browserConfig.extensions.length > 0 && (
+            <div className="flex items-center gap-1">
+              {browserConfig.extensions.map((ext, index) => (
+                <button 
+                  key={index}
+                  className="w-8 h-8 flex items-center justify-center hover:bg-zinc-100 rounded-lg"
+                  title={ext.name}
+                >
+                  <span className="text-lg">{ext.icon}</span>
+                </button>
+              ))}
+            </div>
+          )}
 
           <button className="p-1.5 hover:bg-zinc-100 rounded-full">
             <MoreHorizontal className="w-5 h-5 text-zinc-600" />
           </button>
         </div>
+
+        {/* Bookmark Bar */}
+        {browserConfig.bookmarks.length > 0 && (
+          <div className="flex items-center gap-2 px-3 py-1.5 bg-zinc-50 border-t border-zinc-200">
+            {browserConfig.bookmarks.map((bookmark, index) => (
+              <button
+                key={index}
+                className="flex items-center gap-2 px-3 py-1 hover:bg-zinc-200 rounded text-sm text-zinc-700"
+              >
+                <img 
+                  src={`https://www.google.com/s2/favicons?domain=${bookmark.url}&sz=32`}
+                  alt=""
+                  className="w-4 h-4"
+                />
+                <span className="truncate max-w-[120px]">{bookmark.title}</span>
+              </button>
+            ))}
+          </div>
+        )}
       </div>
 
-      {/* Page Content */}
-      <div className={backgrounds[config.platform]}>
+      {/* Page Content - Full Height */}
+      <div className={`flex-1 overflow-hidden ${backgrounds[config.platform]}`}>
         <DMComponent
           account1={config.account1}
           account2={config.account2}
