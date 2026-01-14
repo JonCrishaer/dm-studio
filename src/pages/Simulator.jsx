@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -28,6 +28,7 @@ export default function Simulator() {
   const [searchParams] = useSearchParams();
   const conversationId = searchParams.get('id');
   const queryClient = useQueryClient();
+  const navigate = useNavigate();
 
   const [step, setStep] = useState(1);
   const [title, setTitle] = useState('');
@@ -89,6 +90,7 @@ export default function Simulator() {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['conversations'] });
+      navigate(createPageUrl('SavedConversations'));
     }
   });
 
