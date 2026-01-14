@@ -191,9 +191,9 @@ export default function Simulator() {
                   <PlatformSelector selected={platform} onSelect={setPlatform} />
                   <Button
                     onClick={() => setStep(2)}
-                    className="w-full mt-6 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700"
+                    className="w-full mt-6 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white"
                   >
-                    Continue <ChevronRight className="w-4 h-4 ml-2" />
+                    Continue <ChevronRight className="w-4 h-4 ml-2 text-white" />
                   </Button>
                 </motion.div>
               )}
