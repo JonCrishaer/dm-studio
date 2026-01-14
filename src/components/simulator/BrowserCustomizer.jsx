@@ -1,6 +1,7 @@
 import React from 'react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
+import { Switch } from '@/components/ui/switch';
 import { X, Plus } from 'lucide-react';
 
 export default function BrowserCustomizer({ browserConfig, onChange }) {
@@ -115,17 +116,25 @@ export default function BrowserCustomizer({ browserConfig, onChange }) {
       {/* Bookmarks */}
       <div>
         <div className="flex items-center justify-between mb-3">
-          <label className="text-white/70 text-sm">Bookmark Bar</label>
+          <div className="flex items-center gap-3">
+            <label className="text-white/70 text-sm">Bookmark Bar</label>
+            <Switch
+              checked={browserConfig.showBookmarks}
+              onCheckedChange={(checked) => onChange({ ...browserConfig, showBookmarks: checked })}
+            />
+          </div>
           <Button
             onClick={addBookmark}
             size="sm"
             className="bg-white/10 hover:bg-white/20 text-white"
+            disabled={!browserConfig.showBookmarks}
           >
             <Plus className="w-3 h-3 mr-1" /> Add Bookmark
           </Button>
         </div>
-        <div className="space-y-2">
-          {browserConfig.bookmarks.map((bookmark, index) => (
+        {browserConfig.showBookmarks && (
+          <div className="space-y-2">
+            {browserConfig.bookmarks.map((bookmark, index) => (
             <div key={index} className="flex gap-2">
               <Input
                 value={bookmark.title}
@@ -149,23 +158,32 @@ export default function BrowserCustomizer({ browserConfig, onChange }) {
               </Button>
             </div>
           ))}
-        </div>
+          </div>
+        )}
       </div>
 
       {/* Extensions */}
       <div>
         <div className="flex items-center justify-between mb-3">
-          <label className="text-white/70 text-sm">Browser Extensions</label>
+          <div className="flex items-center gap-3">
+            <label className="text-white/70 text-sm">Browser Extensions</label>
+            <Switch
+              checked={browserConfig.showExtensions}
+              onCheckedChange={(checked) => onChange({ ...browserConfig, showExtensions: checked })}
+            />
+          </div>
           <Button
             onClick={addExtension}
             size="sm"
             className="bg-white/10 hover:bg-white/20 text-white"
+            disabled={!browserConfig.showExtensions}
           >
             <Plus className="w-3 h-3 mr-1" /> Add Extension
           </Button>
         </div>
-        <div className="space-y-2">
-          {browserConfig.extensions.map((ext, index) => (
+        {browserConfig.showExtensions && (
+          <div className="space-y-2">
+            {browserConfig.extensions.map((ext, index) => (
             <div key={index} className="flex gap-2">
               <Input
                 value={ext.icon}
@@ -189,7 +207,8 @@ export default function BrowserCustomizer({ browserConfig, onChange }) {
               </Button>
             </div>
           ))}
-        </div>
+          </div>
+        )}
       </div>
     </div>
   );

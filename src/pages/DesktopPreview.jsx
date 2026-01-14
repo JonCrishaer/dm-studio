@@ -65,7 +65,9 @@ export default function DesktopPreview() {
     tabs: [{ title: 'Messages', favicon: '' }],
     activeTab: 0,
     bookmarks: [],
-    extensions: []
+    extensions: [],
+    showBookmarks: false,
+    showExtensions: false
   };
 
   const displayUrl = browserConfig.url || defaultUrls[config.platform];
@@ -130,7 +132,7 @@ export default function DesktopPreview() {
             <span className="text-sm text-zinc-700">{displayUrl}</span>
           </div>
 
-          {browserConfig.extensions.length > 0 && (
+          {browserConfig.showExtensions && browserConfig.extensions.length > 0 && (
             <div className="flex items-center gap-1">
               {browserConfig.extensions.map((ext, index) => (
                 <button 
@@ -150,7 +152,7 @@ export default function DesktopPreview() {
         </div>
 
         {/* Bookmark Bar */}
-        {browserConfig.bookmarks.length > 0 && (
+        {browserConfig.showBookmarks && browserConfig.bookmarks.length > 0 && (
           <div className="flex items-center gap-2 px-3 py-1.5 bg-zinc-50 border-t border-zinc-200">
             {browserConfig.bookmarks.map((bookmark, index) => (
               <button

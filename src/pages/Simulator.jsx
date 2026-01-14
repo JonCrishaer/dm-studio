@@ -61,7 +61,9 @@ export default function Simulator() {
     tabs: [{ title: 'Messages', favicon: '' }],
     activeTab: 0,
     bookmarks: [],
-    extensions: []
+    extensions: [],
+    showBookmarks: false,
+    showExtensions: false
   });
   const playbackRef = useRef(null);
   const previewWindowRef = useRef(null);
