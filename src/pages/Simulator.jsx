@@ -226,15 +226,15 @@ export default function Simulator() {
                     <Button
                       variant="outline"
                       onClick={() => setStep(1)}
-                      className="flex-1 border-white/20 text-white hover:bg-white/10"
+                      className="flex-1 border-white/20 text-white hover:bg-white/10 hover:text-white"
                     >
-                      <ChevronLeft className="w-4 h-4 mr-2" /> Back
+                      <ChevronLeft className="w-4 h-4 mr-2 text-white" /> Back
                     </Button>
                     <Button
                       onClick={() => setStep(3)}
-                      className="flex-1 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700"
+                      className="flex-1 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white"
                     >
-                      Continue <ChevronRight className="w-4 h-4 ml-2" />
+                      Continue <ChevronRight className="w-4 h-4 ml-2 text-white" />
                     </Button>
                   </div>
                 </motion.div>
@@ -261,16 +261,16 @@ export default function Simulator() {
                     <Button
                       variant="outline"
                       onClick={() => setStep(2)}
-                      className="flex-1 border-white/20 text-white hover:bg-white/10"
+                      className="flex-1 border-white/20 text-white hover:bg-white/10 hover:text-white"
                     >
-                      <ChevronLeft className="w-4 h-4 mr-2" /> Back
+                      <ChevronLeft className="w-4 h-4 mr-2 text-white" /> Back
                     </Button>
                     <Button
                       onClick={() => { setStep(4); handleReset(); }}
                       disabled={messages.length === 0}
-                      className="flex-1 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700"
+                      className="flex-1 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white disabled:opacity-50"
                     >
-                      <Smartphone className="w-4 h-4 mr-2" /> Preview
+                      <Smartphone className="w-4 h-4 mr-2 text-white" /> Preview
                     </Button>
                   </div>
                 </motion.div>
@@ -319,16 +319,16 @@ export default function Simulator() {
                     <Button
                       variant="outline"
                       onClick={() => setStep(3)}
-                      className="flex-1 border-white/20 text-white hover:bg-white/10"
+                      className="flex-1 border-white/20 text-white hover:bg-white/10 hover:text-white"
                     >
-                      <ChevronLeft className="w-4 h-4 mr-2" /> Edit Messages
+                      <ChevronLeft className="w-4 h-4 mr-2 text-white" /> Edit Messages
                     </Button>
                     <Button
                       onClick={handleSave}
                       disabled={saveMutation.isPending}
-                      className="flex-1 bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700"
+                      className="flex-1 bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white disabled:opacity-50"
                     >
-                      <Save className="w-4 h-4 mr-2" />
+                      <Save className="w-4 h-4 mr-2 text-white" />
                       {saveMutation.isPending ? 'Saving...' : 'Save'}
                     </Button>
                   </div>
