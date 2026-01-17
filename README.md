@@ -1,39 +1,42 @@
-**Welcome to your Base44 project** 
+# Social Media DM Simulator
+<img width="1396" height="1180" alt="Screenshot 2026-01-17 at 9 20 10 AM" src="https://github.com/user-attachments/assets/7c7313f2-c6bd-4775-9ddf-9fbb60c59038" />
 
-**About**
+Create realistic social media direct message conversations for all major platforms. Perfect for content creators, educators, and marketers.
 
-View and Edit  your app on [Base44.com](http://Base44.com) 
+## Features
 
-This project contains everything you need to run your app locally.
+### 🎨 Multi-Platform Support
+- Instagram, Twitter/X, Facebook, TikTok
+- Authentic UI for each platform
 
-**Edit the code in your local development environment**
+### 📱 Dual View Modes
+- Mobile View with customizable status bar
+- Desktop View with browser chrome, tabs & extensions
 
-Any change pushed to the repo will also be reflected in the Base44 Builder.
+### ⚡ Interactive Playback
+- Real-time animation, adjustable speed
+- Skip/reset controls, typing indicators
 
-**Prerequisites:** 
+### 👤 Profile Management
+- Save multiple profiles
+- Verified badges, custom avatars
 
-1. Clone the repository using the project's Git URL 
-2. Navigate to the project directory
-3. Install dependencies: `npm install`
-4. Create an `.env.local` file and set the right environment variables
+### 💾 Conversation Storage
+- Save & replay unlimited conversations
 
-```
-VITE_BASE44_APP_ID=your_app_id
-VITE_BASE44_APP_BASE_URL=your_backend_url
+## Usage
 
-e.g.
-VITE_BASE44_APP_ID=cbef744a8545c389ef439ea6
-VITE_BASE44_APP_BASE_URL=https://my-to-do-list-81bfaad7.base44.app
-```
+1. Choose platform
+2. Setup accounts (names, avatars, verification)
+3. Compose messages
+4. Preview with animation
+5. Save for later
 
-Run the app: `npm run dev`
+## Tech Stack
+React, Tailwind CSS, Framer Motion, React Query
 
-**Publish your changes**
+## Use Cases
+Content creation, education, marketing mockups, training scenarios
 
-Open [Base44.com](http://Base44.com) and click on Publish.
-
-**Docs & Support**
-
-Documentation: [https://docs.base44.com/Integrations/Using-GitHub](https://docs.base44.com/Integrations/Using-GitHub)
-
-Support: [https://app.base44.com/support](https://app.base44.com/support)
+## License
+MIT
