@@ -1,0 +1,34 @@
+{
+  "name": "Profile",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Profile name for easy identification"
+    },
+    "username": {
+      "type": "string",
+      "description": "Social media username"
+    },
+    "display_name": {
+      "type": "string",
+      "description": "Display name"
+    },
+    "avatar_url": {
+      "type": "string",
+      "description": "Profile picture URL"
+    },
+    "profile_url": {
+      "type": "string",
+      "description": "Link to social media profile"
+    },
+    "verified": {
+      "type": "boolean",
+      "default": false,
+      "description": "Verified badge status"
+    }
+  },
+  "required": [
+    "name"
+  ]
+}

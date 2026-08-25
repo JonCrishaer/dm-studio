@@ -1,0 +1,96 @@
+{
+  "name": "Conversation",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string",
+      "description": "Name for this conversation simulation"
+    },
+    "platform": {
+      "type": "string",
+      "enum": [
+        "instagram",
+        "twitter",
+        "facebook",
+        "tiktok"
+      ],
+      "description": "Social media platform"
+    },
+    "account_1": {
+      "type": "object",
+      "properties": {
+        "username": {
+          "type": "string"
+        },
+        "display_name": {
+          "type": "string"
+        },
+        "avatar_url": {
+          "type": "string"
+        },
+        "profile_url": {
+          "type": "string"
+        },
+        "verified": {
+          "type": "boolean"
+        }
+      }
+    },
+    "account_2": {
+      "type": "object",
+      "properties": {
+        "username": {
+          "type": "string"
+        },
+        "display_name": {
+          "type": "string"
+        },
+        "avatar_url": {
+          "type": "string"
+        },
+        "profile_url": {
+          "type": "string"
+        },
+        "verified": {
+          "type": "boolean"
+        }
+      }
+    },
+    "messages": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "sender": {
+            "type": "string",
+            "enum": [
+              "account_1",
+              "account_2"
+            ]
+          },
+          "content": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "text",
+              "image",
+              "emoji"
+            ]
+          },
+          "image_url": {
+            "type": "string"
+          },
+          "timestamp": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  },
+  "required": [
+    "title",
+    "platform"
+  ]
+}
